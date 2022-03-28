@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "start make dockerfile"
+  - docker build -t cc/react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true cc/react npm run test -- --converage
+
+after_success:
+  - echo "Test success"
